@@ -1,25 +1,38 @@
 const Experience = () => {
   const experiences = [
     {
-      title: "AI Systems Engineer / Associate Engineer",
+      title: "Associate Engineer",
       company: "KTern.AI",
-      period: "2024 – Present",
-      location: "Chennai, India",
+      period: "Jul 2025 – Present",
+      location: "Chennai, Tamil Nadu, India",
       roleType: "Full-time",
-      summary: "Architecting autonomous agentic reasoning runtimes on AWS Bedrock, Model Context Protocol (MCP) tool fabrics, and enterprise SAP S/4HANA systems integration.",
+      summary: "Engineering autonomous LLM agent pipelines on AWS Bedrock, prompt management frameworks, and enterprise SAP S/4HANA functional specification automation.",
       highlights: [
-        "Architected and deployed production multi-agent pipelines converting unstructured enterprise dialogues into formal, audit-grade SAP WRICEF functional specifications, cutting drafting turnaround by over 60%.",
-        "Engineered production prompt compilation chains, automated evaluation guardrails, and deterministic JSON schema validation on AWS Bedrock with Claude 3.5 Sonnet.",
-        "Built custom Model Context Protocol (MCP) servers providing autonomous agents with deterministic tool execution, persistent session state, and sub-2ms enterprise knowledge retrieval.",
-        "Engineered resilient enterprise integration pipelines connecting modern cloud agent runtimes with SAP S/4HANA backends, RFC-based extraction engines, and SAP Integration Suite / CPI."
+        "Architected and deployed end-to-end LLM agents on AWS Bedrock that convert unstructured user inputs into structured functional specification documents aligned to enterprise WRICEF standards.",
+        "Engineered production prompt management and orchestration workflows across AWS Bedrock and S3 with automated guardrails and schema validation.",
+        "Built custom Model Context Protocol (MCP) servers enabling autonomous agents to execute deterministic tools, maintain state, and query enterprise knowledge.",
+        "Integrated RFC-based enterprise data extraction pipelines and SAP Integration Suite / CPI endpoints for S/4HANA transformation projects."
+      ]
+    },
+    {
+      title: "Full stack Techno Functional Intern",
+      company: "KaarTech",
+      period: "Jan 2025 – Jul 2025",
+      location: "Chennai, Tamil Nadu, India",
+      roleType: "Internship",
+      summary: "Engineered full-stack applications and bridged modern web architectures with enterprise SAP business workflows and techno-functional documentation.",
+      highlights: [
+        "Built responsive full-stack features and API integrations using TypeScript, React, and Python backend services for enterprise client deliverables.",
+        "Collaborated across technical and functional consulting workstreams to translate business requirements into architecture specifications and clean interfaces.",
+        "Gained hands-on techno-functional exposure to enterprise ERP processes, data flows, and system integration patterns."
       ]
     },
     {
       title: "Star of the Month",
       company: "KTern.AI",
-      period: "2024",
+      period: "2025",
       location: "Chennai, India",
-      roleType: "Recognition",
+      roleType: "Honor",
       summary: "Conferred by KTern.AI executive leadership in recognition of breakthrough technical execution and rapid delivery of enterprise AI agent architectures.",
       highlights: [
         "Pioneered automated functional specification synthesis, accelerating requirement-to-architecture delivery across key enterprise consulting engagements.",

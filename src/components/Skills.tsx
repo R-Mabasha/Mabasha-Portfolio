@@ -12,7 +12,7 @@ const Skills = () => {
       description: "Multi-agent orchestration loops, deterministic prompt compilation, and formal schema enforcement on AWS Bedrock.",
       items: [
         "AWS Bedrock",
-        "Claude 3.5 Sonnet",
+        "Frontier LLM Orchestration",
         "Model Context Protocol (MCP)",
         "Multi-Agent Coordination",
         "Prompt Compilers & Guardrails",

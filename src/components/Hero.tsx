@@ -11,7 +11,7 @@ const Hero = () => {
           {/* Status Badge */}
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 mb-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-zinc-200 font-medium">AI Systems & Architecture · KTern.AI</span>
+            <span className="text-zinc-200 font-medium">Associate Engineer @ KTern.AI</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-100">
@@ -19,7 +19,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-300 font-medium">
-            AI Systems Engineer & Architect · Autonomous Agent Runtimes & Enterprise Systems
+            Agentic AI & LLM Systems · Enterprise SAP S/4HANA Transformation
           </p>
         </div>
 

@@ -22,7 +22,7 @@ const About = () => {
           </p>
 
           <p className="text-zinc-400">
-            At <strong className="text-zinc-200 font-medium">KTern.AI</strong>, I engineer production agentic reasoning loops on AWS Bedrock (Claude 3.5 Sonnet) that compile unstructured enterprise dialogues into formal, audit-grade WRICEF functional architecture specifications. By coupling multi-agent verification loops with structured schema compilers, we eliminate hallucination and accelerate enterprise technical drafting cycles.
+            At <strong className="text-zinc-200 font-medium">KTern.AI</strong>, I engineer production agentic reasoning loops on AWS Bedrock that compile unstructured enterprise dialogues into formal, audit-grade WRICEF functional architecture specifications. By coupling multi-agent verification loops with structured schema compilers, we eliminate hallucination and accelerate enterprise technical drafting cycles.
           </p>
 
           <p className="text-zinc-400">
