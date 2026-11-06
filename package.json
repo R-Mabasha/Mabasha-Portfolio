@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://coders2345.github.io/Mabasha-Portfolio",
+  "homepage": "https://r-mabasha.github.io/Mabasha-Portfolio",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

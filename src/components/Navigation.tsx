@@ -49,36 +49,47 @@ const Navigation = () => {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-black/80 backdrop-blur-md shadow-lg shadow-purple-500/10' : 'bg-transparent'
+    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      scrolled ? 'bg-black/85 backdrop-blur-md border-b border-gray-800/80 shadow-lg shadow-purple-500/5' : 'bg-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Main navigation" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg flex items-center justify-center">
+          <button 
+            type="button"
+            onClick={() => scrollToSection('home')}
+            aria-label="Navigate to Home"
+            className="flex items-center space-x-3 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-lg"
+          >
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 via-pink-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-md shadow-purple-500/20 group-hover:scale-105 transition-transform duration-200">
               <span className="text-white font-bold text-lg">M</span>
             </div>
-            <span className="text-white font-bold text-xl">Mabasha R.</span>
-            <div className="hidden sm:flex items-center space-x-1 ml-2">
-              <Trophy className="w-4 h-4 text-yellow-400" />
-              <span className="text-yellow-400 text-xs font-medium">SIH Winner</span>
+            <div>
+              <div className="flex items-center space-x-2">
+                <span className="text-white font-bold text-lg tracking-tight">Mabasha R.</span>
+                <span className="hidden xl:inline-block px-2 py-0.5 text-[11px] font-semibold text-purple-300 bg-purple-950/70 border border-purple-800/50 rounded-full">
+                  KTern.AI
+                </span>
+              </div>
+              <p className="text-xs text-gray-400 font-mono hidden sm:block">Agentic AI & Systems</p>
             </div>
-          </div>
+          </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
             {navigation.map((item) => (
               <button
                 key={item.name}
+                type="button"
                 onClick={() => scrollToSection(item.name.toLowerCase())}
-                className={`flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                aria-current={activeSection === item.name.toLowerCase() ? 'page' : undefined}
+                className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 ${
                   activeSection === item.name.toLowerCase()
-                    ? 'text-purple-400 bg-purple-500/20'
+                    ? 'text-purple-300 bg-purple-950/60 border border-purple-800/40'
                     : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
                 }`}
               >
-                <item.icon className="w-4 h-4" />
+                <item.icon className="w-4 h-4" aria-hidden="true" />
                 <span>{item.name}</span>
               </button>
             ))}
@@ -87,14 +98,17 @@ const Navigation = () => {
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
+              type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-white p-2 rounded-lg hover:bg-gray-800/50 transition-colors duration-300"
+              aria-label="Toggle navigation menu"
+              aria-expanded={isOpen}
+              className="text-gray-300 hover:text-white p-2 rounded-lg hover:bg-gray-800/50 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile Navigation */}
       <div className={`md:hidden transition-all duration-300 ${
@@ -102,24 +116,26 @@ const Navigation = () => {
           ? 'max-h-96 opacity-100' 
           : 'max-h-0 opacity-0 overflow-hidden'
       }`}>
-        <div className="px-4 py-2 space-y-1 bg-black/90 backdrop-blur-md border-t border-gray-800">
+        <div className="px-4 py-3 space-y-1 bg-black/95 backdrop-blur-xl border-t border-gray-800">
           {navigation.map((item) => (
             <button
               key={item.name}
+              type="button"
               onClick={() => scrollToSection(item.name.toLowerCase())}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-all duration-300 ${
+              aria-current={activeSection === item.name.toLowerCase() ? 'page' : undefined}
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 ${
                 activeSection === item.name.toLowerCase()
-                  ? 'text-purple-400 bg-purple-500/20'
+                  ? 'text-purple-300 bg-purple-950/60 border border-purple-800/40 font-semibold'
                   : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
               }`}
             >
-              <item.icon className="w-5 h-5" />
+              <item.icon className="w-5 h-5" aria-hidden="true" />
               <span>{item.name}</span>
             </button>
           ))}
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
 

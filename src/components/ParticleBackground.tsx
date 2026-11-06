@@ -16,6 +16,10 @@ const ParticleBackground = () => {
   const animationRef = useRef<number>();
 
   useEffect(() => {
+    // Respect user's motion preference for performance and accessibility
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -29,16 +33,18 @@ const ParticleBackground = () => {
 
     const createParticles = () => {
       const particles: Particle[] = [];
-      const particleCount = Math.floor((window.innerWidth * window.innerHeight) / 10000);
+      // Performance optimization: cap maximum particles to 40 to avoid O(n^2) frame lag
+      const rawCount = Math.floor((window.innerWidth * window.innerHeight) / 25000);
+      const particleCount = Math.min(Math.max(rawCount, 20), 40);
 
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          size: Math.random() * 2 + 1,
-          opacity: Math.random() * 0.5 + 0.2
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          size: Math.random() * 1.5 + 1,
+          opacity: Math.random() * 0.35 + 0.15
         });
       }
 
@@ -48,7 +54,12 @@ const ParticleBackground = () => {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      particlesRef.current.forEach((particle, index) => {
+      const particles = particlesRef.current;
+      const count = particles.length;
+
+      for (let i = 0; i < count; i++) {
+        const particle = particles[i];
+
         // Update position
         particle.x += particle.vx;
         particle.y += particle.vy;
@@ -66,21 +77,23 @@ const ParticleBackground = () => {
         ctx.fill();
 
         // Draw connections
-        particlesRef.current.slice(index + 1).forEach(otherParticle => {
-          const dx = particle.x - otherParticle.x;
-          const dy = particle.y - otherParticle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+        for (let j = i + 1; j < count; j++) {
+          const other = particles[j];
+          const dx = particle.x - other.x;
+          const dy = particle.y - other.y;
+          const distSq = dx * dx + dy * dy;
 
-          if (distance < 100) {
+          if (distSq < 10000) { // 100^2
+            const distance = Math.sqrt(distSq);
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `rgba(168, 85, 247, ${0.1 * (1 - distance / 100)})`;
+            ctx.lineTo(other.x, other.y);
+            ctx.strokeStyle = `rgba(168, 85, 247, ${0.08 * (1 - distance / 100)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
-        });
-      });
+        }
+      }
 
       animationRef.current = requestAnimationFrame(animate);
     };

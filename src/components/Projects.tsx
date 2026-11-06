@@ -1,221 +1,249 @@
 
-import { useEffect, useRef, useState } from 'react';
-import { Github, ExternalLink, Star, GitFork, Award, Laptop, Smartphone, Globe } from 'lucide-react';
+import { useState } from 'react';
+import { Github, ExternalLink, Award, Code2, Sparkles, Terminal, ArrowUpRight } from 'lucide-react';
+
+interface Project {
+  title: string;
+  badge: string;
+  category: 'agentic' | 'systems';
+  description: string;
+  tech: string[];
+  github: string;
+  live: string | null;
+  award?: string;
+  featured?: boolean;
+  installCommand?: string;
+}
 
 const Projects = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [githubData, setGithubData] = useState<any[]>([]);
+  const [activeFilter, setActiveFilter] = useState<'all' | 'agentic' | 'systems'>('all');
 
-  const projects = [
+  const projects: Project[] = [
     {
-      title: "MobiSafe",
-      description: "AI-powered vehicle monitoring system using LSTM networks for real-time safety analysis and predictive maintenance. Winner of Smart India Hackathon 2023.",
-      tech: ["Python", "TensorFlow", "LSTM", "OpenCV", "Flask"],
-      github: "https://github.com/mabasham52/MobiSafe",
-      live: null,
-      image: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?w=800&h=600&fit=crop",
+      title: "graphrag-atlas",
+      badge: "PyPI Package · GraphRAG",
+      category: 'agentic',
+      description: "Autonomous Knowledge Graph construction and GraphRAG engine without requiring predefined schemas. Features dynamic schema induction, entity extraction, and multi-hop relationship retrieval across large unstructured corpora.",
+      tech: ["Python", "LangChain", "NetworkX", "GraphRAG", "PyPI", "Embeddings"],
+      github: "https://github.com/R-Mabasha/graphrag-atlas",
+      live: "https://pypi.org/project/graphrag-atlas/",
+      award: "PyPI Release v0.1.0",
       featured: true,
+      installCommand: "pip install graphrag-atlas"
     },
     {
-      title: "StockVision",
-      description: "Tesla stock price prediction model using advanced machine learning algorithms and real-time market data analysis with 95% accuracy rate.",
-      tech: ["Python", "Scikit-learn", "Pandas", "Matplotlib", "Yahoo Finance API"],
-      github: "https://github.com/mabasham52/StockVision",
+      title: "antigravity-project-memory",
+      badge: "MCP Server · Long-Term Memory",
+      category: 'agentic',
+      description: "Production-grade Anthropic Model Context Protocol (MCP) server providing autonomous persistent long-term memory for AI coding agents with hybrid search (BM25 + Dense Vectors) and multi-agent knowledge consolidation.",
+      tech: ["TypeScript", "Model Context Protocol", "Vector DB", "BM25 Hybrid Search", "Node.js"],
+      github: "https://github.com/R-Mabasha/antigravity-project-memory",
       live: null,
-      image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop",
+      award: "MCP Protocol Standard",
       featured: true
     },
     {
-      title: "CVE Hub",
-      description: "Comprehensive vulnerability tracking system built with Flask and MongoDB for cybersecurity management and threat analysis.",
-      tech: ["Flask", "MongoDB", "Python", "Bootstrap", "REST API"],
-      github: "https://github.com/mabasham52/CVE-Hub",
+      title: "Multi-Agent-Mcp",
+      badge: "Agentic Framework",
+      category: 'agentic',
+      description: "Enterprise multi-agent coordination architecture leveraging the Model Context Protocol (MCP) to orchestrate specialized researcher, developer, and verifier agents for complex asynchronous tasks.",
+      tech: ["Python", "MCP SDK", "AWS Bedrock", "AsyncIO", "LLM Orchestration"],
+      github: "https://github.com/R-Mabasha/Multi-Agent-Mcp",
       live: null,
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=600&fit=crop",
       featured: false
     },
     {
-      title: "Chittu AI Assistant",
-      description: "Intelligent desktop assistant with speech recognition, powered by Gemini API and built with modern GUI frameworks.",
-      tech: ["Python", "Tkinter", "Gemini API", "Speech Recognition", "NLP"],
-      github: "https://github.com/mabasham52/Chittu-AI-Assistant",
+      title: "Vision-Stream",
+      badge: "Gemini 3 Hackathon",
+      category: 'systems',
+      description: "Real-time multimodal streaming intelligence and video analytics pipeline built for the Gemini 3 Hackathon, combining low-latency video feeds with vision models for high-frame situational awareness.",
+      tech: ["Python", "Gemini API", "OpenCV", "WebRTC", "Computer Vision"],
+      github: "https://github.com/R-Mabasha/Vision-Stream",
       live: null,
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop",
+      award: "Hackathon Entry",
+      featured: false
+    },
+    {
+      title: "MobiSafe",
+      badge: "SIH 2023 National Winner",
+      category: 'systems',
+      description: "AI-driven vehicle safety monitoring and predictive maintenance system using LSTM deep neural networks and computer vision to detect driver fatigue and vehicle telemetry anomalies in real-time.",
+      tech: ["Python", "TensorFlow", "LSTM", "OpenCV", "IoT Telemetry", "Flask"],
+      github: "https://github.com/R-Mabasha/MobiSafe",
+      live: null,
+      award: "1st Place & ₹1,00,000",
+      featured: true
+    },
+    {
+      title: "Chittu-AI-Assistant",
+      badge: "Voice & Desktop Agent",
+      category: 'agentic',
+      description: "Intelligent desktop voice assistant featuring continuous speech recognition, NLP intent parsing, and Gemini API integration for hands-free local system workflow automation.",
+      tech: ["Python", "Gemini API", "Speech Recognition", "NLP", "GUI"],
+      github: "https://github.com/R-Mabasha/Chittu-AI-Assistant",
+      live: null,
       featured: false
     }
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const ProjectCard = ({ project, index }: { project: any, index: number }) => (
-    <div
-      className={`group relative bg-gradient-to-br from-gray-900/80 to-black/80 rounded-2xl overflow-hidden border border-gray-800 hover:border-purple-500/50 transition-all duration-700 hover:transform hover:scale-[1.02] ${
-        project.featured ? 'md:col-span-2 lg:col-span-1' : ''
-      }`}
-      style={{ animationDelay: `${index * 200}ms` }}
-    >
-      {/* Glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-pink-600/5 to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      
-      {/* Award badge */}
-      {project.award && (
-        <div className="absolute top-4 right-4 z-10 flex items-center space-x-1 bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-2 sm:px-3 py-1 rounded-full text-xs font-bold">
-          <Award className="w-3 h-3" />
-          <span className="hidden sm:inline">{project.award}</span>
-          <span className="sm:hidden">Winner</span>
-        </div>
-      )}
-      
-      <div className="relative h-full flex flex-col">
-        {/* Image section */}
-        <div className={`overflow-hidden ${project.featured ? 'h-48 sm:h-56 lg:h-64' : 'h-40 sm:h-48'}`}>
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-        </div>
-        
-        {/* Content section */}
-        <div className="p-4 sm:p-6 flex-1 flex flex-col">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-purple-400 transition-colors duration-300">
-              {project.title}
-            </h3>
-            {project.featured && (
-              <span className="px-2 sm:px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold rounded-full">
-                Featured
-              </span>
-            )}
-          </div>
-          
-          <p className="text-gray-300 mb-4 flex-1 text-xs sm:text-sm leading-relaxed line-clamp-3">
-            {project.description}
-          </p>
-          
-          <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6">
-            {project.tech.map((tech: string, techIndex: number) => (
-              <span
-                key={techIndex}
-                className="px-2 py-1 bg-gray-800/80 text-gray-300 text-xs rounded-md border border-gray-700"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-          
-          <div className="flex items-center justify-between mt-auto">
-            <div className="flex space-x-3 sm:space-x-4">
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-1 sm:space-x-2 text-gray-400 hover:text-purple-400 transition-colors duration-300 text-xs sm:text-sm"
-              >
-                <Github size={16} className="sm:w-[18px] sm:h-[18px]" />
-                <span>Code</span>
-              </a>
-              {project.live && (
-                <a
-                  href={project.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1 sm:space-x-2 text-gray-400 hover:text-pink-400 transition-colors duration-300 text-xs sm:text-sm"
-                >
-                  <ExternalLink size={16} className="sm:w-[18px] sm:h-[18px]" />
-                  <span>Live</span>
-                </a>
-              )}
-            </div>
-            
-            <div className="flex items-center space-x-2 sm:space-x-3 text-gray-500">
-              <div className="flex items-center space-x-1">
-                <Star size={12} className="sm:w-[14px] sm:h-[14px]" />
-                <span className="text-xs">--</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <GitFork size={12} className="sm:w-[14px] sm:h-[14px]" />
-                <span className="text-xs">--</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  const filteredProjects = activeFilter === 'all'
+    ? projects
+    : projects.filter(p => p.category === activeFilter);
 
   return (
-    <section id="projects" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-gray-950 to-black" ref={sectionRef}>
+    <section id="projects" className="py-20 lg:py-24 bg-gradient-to-b from-black via-gray-950 to-black border-t border-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-900/30 to-pink-900/30 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 border border-purple-500/30 mb-6">
-            <Laptop className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
-            <span className="text-purple-400 font-semibold text-sm sm:text-base">Portfolio Showcase</span>
+        {/* Header */}
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-950/40 border border-purple-800/40 text-xs text-purple-300 font-medium mb-4">
+            <Code2 className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>Open Source & Production Works</span>
           </div>
-          
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">
-              Featured Projects
-            </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
+            Featured <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">Projects</span>
           </h2>
-          <div className="w-20 sm:w-24 lg:w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 mx-auto rounded-full mb-6"></div>
-          <p className="text-gray-400 text-sm sm:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
-            Innovative solutions crafted with cutting-edge AI/ML technologies, 
-            <span className="text-purple-400 font-semibold"> award-winning projects</span>, and 
-            <span className="text-pink-400 font-semibold"> real-world impact</span>
+          <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mt-4 mb-4"></div>
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Real implementations in Agentic AI, autonomous GraphRAG engines, and national award-winning systems.
           </p>
         </div>
 
-        {/* Responsive grid layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 auto-rows-fr">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
+        {/* Filter Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+          <button
+            type="button"
+            onClick={() => setActiveFilter('all')}
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+              activeFilter === 'all'
+                ? 'bg-purple-600 text-white shadow-md shadow-purple-500/25'
+                : 'bg-gray-900/80 text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700'
+            }`}
+          >
+            All Work ({projects.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveFilter('agentic')}
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+              activeFilter === 'agentic'
+                ? 'bg-purple-600 text-white shadow-md shadow-purple-500/25'
+                : 'bg-gray-900/80 text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700'
+            }`}
+          >
+            Agentic AI & RAG
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveFilter('systems')}
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+              activeFilter === 'systems'
+                ? 'bg-purple-600 text-white shadow-md shadow-purple-500/25'
+                : 'bg-gray-900/80 text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700'
+            }`}
+          >
+            Award Winners & Systems
+          </button>
+        </div>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {filteredProjects.map((project, index) => (
+            <article
+              key={index}
+              className={`group flex flex-col justify-between bg-gray-950/90 rounded-2xl p-6 sm:p-7 border border-gray-800/80 hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10 ${
+                project.featured ? 'md:col-span-2 lg:col-span-1' : ''
+              }`}
+            >
+              <div>
+                {/* Header Badge Row */}
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <span className="px-2.5 py-1 text-xs font-mono font-medium rounded-md bg-purple-950/60 text-purple-300 border border-purple-800/40">
+                    {project.badge}
+                  </span>
+                  {project.award && (
+                    <span className="flex items-center space-x-1 px-2.5 py-0.5 text-[11px] font-semibold rounded-full bg-amber-950/40 text-amber-300 border border-amber-800/40">
+                      <Award className="w-3 h-3 text-amber-400" aria-hidden="true" />
+                      <span>{project.award}</span>
+                    </span>
+                  )}
+                </div>
+
+                {/* Title */}
+                <h3 className="text-xl font-bold text-white group-hover:text-purple-300 transition-colors duration-200 mb-3 tracking-tight">
+                  {project.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-5">
+                  {project.description}
+                </p>
+
+                {/* Optional CLI Install snippet for PyPI / open source */}
+                {project.installCommand && (
+                  <div className="mb-4 p-2.5 bg-black/80 rounded-lg border border-gray-800/80 font-mono text-xs text-gray-300 flex items-center justify-between">
+                    <div className="flex items-center space-x-2 overflow-x-auto">
+                      <Terminal className="w-3.5 h-3.5 text-pink-400 flex-shrink-0" aria-hidden="true" />
+                      <span className="text-pink-300">{project.installCommand}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Tech Chips */}
+                <div className="flex flex-wrap gap-1.5 mb-6">
+                  {project.tech.map((t, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-0.5 text-[11px] font-medium rounded bg-gray-900 text-gray-300 border border-gray-800"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Links */}
+              <div className="flex items-center justify-between pt-4 border-t border-gray-800/80 mt-auto">
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View source code for ${project.title} on GitHub`}
+                  className="inline-flex items-center space-x-1.5 text-xs sm:text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md py-1 px-1.5"
+                >
+                  <Github className="w-4 h-4" aria-hidden="true" />
+                  <span>GitHub Repository</span>
+                </a>
+
+                {project.live && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open live documentation or package for ${project.title}`}
+                    className="inline-flex items-center space-x-1 text-xs sm:text-sm font-medium text-pink-400 hover:text-pink-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-pink-400 rounded-md py-1 px-1.5"
+                  >
+                    <span>PyPI Package</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+                  </a>
+                )}
+              </div>
+            </article>
           ))}
         </div>
 
-        {/* Call to action section */}
-        <div className="text-center mt-12 sm:mt-16 lg:mt-20">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              href="https://github.com/coders2345"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center space-x-3 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 w-full sm:w-auto"
-            >
-              <Github size={20} className="sm:w-[22px] sm:h-[22px]" />
-              <span>View All Projects</span>
-              <ExternalLink size={16} className="sm:w-[18px] sm:h-[18px] group-hover:translate-x-1 transition-transform duration-300" />
-            </a>
-            
-            <div className="flex items-center space-x-4 text-gray-500 text-sm">
-              <div className="flex items-center space-x-2">
-                <Globe className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>Live Projects</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Smartphone className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>Mobile Ready</span>
-              </div>
-            </div>
-          </div>
+        {/* Global GitHub CTA */}
+        <div className="text-center mt-14 sm:mt-16">
+          <a
+            href="https://github.com/R-Mabasha"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View all repositories on GitHub (opens in new tab)"
+            className="group inline-flex items-center space-x-2.5 px-7 py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-medium transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-purple-400"
+          >
+            <Github className="w-5 h-5" aria-hidden="true" />
+            <span>Explore All Repositories on GitHub</span>
+            <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>

@@ -1,140 +1,228 @@
 
-import { useEffect, useRef, useState } from 'react';
-import { Code, Database, Brain, Wrench } from 'lucide-react';
+import { useState } from 'react';
+import { Bot, Network, Server, Layers, Cpu, CheckCircle2 } from 'lucide-react';
+
+interface SkillCategory {
+  id: string;
+  title: string;
+  badge: string;
+  icon: typeof Bot;
+  color: string;
+  accentBorder: string;
+  description: string;
+  technologies: string[];
+  capabilities: string[];
+}
 
 const Skills = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [activeTab, setActiveTab] = useState<string>('all');
 
-  const skillCategories = [
+  const categories: SkillCategory[] = [
     {
-      title: "AI/ML & Data Science",
-      icon: Brain,
-      skills: [
-        { name: "Python", level: 95 },
-        { name: "Machine Learning", level: 90 },
-        { name: "Deep Learning", level: 85 },
-        { name: "Flask", level: 80 }
+      id: 'agentic-ai',
+      title: "Agentic AI & LLM Systems",
+      badge: "Core Focus",
+      icon: Bot,
+      color: "from-purple-500/20 to-indigo-500/20 text-purple-400",
+      accentBorder: "group-hover:border-purple-500/50",
+      description: "End-to-end prompt engineering, autonomous tool calling, and multi-agent systems deployed on AWS Bedrock.",
+      technologies: [
+        "AWS Bedrock",
+        "Claude 3.5 / Sonnet",
+        "Model Context Protocol (MCP)",
+        "Multi-Agent Orchestration",
+        "Prompt Management",
+        "Function Calling",
+        "Structured Output / JSON Schema"
       ],
-      color: "from-purple-500 to-pink-500"
+      capabilities: [
+        "Autonomous agents translating user inputs into WRICEF functional specifications",
+        "MCP tool servers for persistent context and external enterprise integrations",
+        "Evaluations, safety guardrails, and deterministic prompting pipelines"
+      ]
     },
     {
-      title: "SAP Development",
-      icon: Code,
-      skills: [
-        { name: "ABAP", level: 85 },
-        { name: "SAP UI5", level: 80 },
-        { name: "SAP FICO", level: 75 },
-        { name: "OData", level: 80 },
-        { name: "CDS Views", level: 75 }
+      id: 'graphrag',
+      title: "GraphRAG & Knowledge Systems",
+      badge: "Open Source Author",
+      icon: Network,
+      color: "from-pink-500/20 to-purple-500/20 text-pink-400",
+      accentBorder: "group-hover:border-pink-500/50",
+      description: "Autonomous schema induction, entity extraction, and hybrid retrieval across dense vectors and relational knowledge graphs.",
+      technologies: [
+        "graphrag-atlas (PyPI)",
+        "AutoSchemaKG",
+        "Hybrid Search (BM25 + Dense)",
+        "Vector Databases",
+        "NetworkX",
+        "LangChain",
+        "Context Engineering"
       ],
-      color: "from-indigo-500 to-purple-500"
+      capabilities: [
+        "Schema-free dynamic graph construction from unstructured documents",
+        "Multi-hop reasoning and community clustering for complex question answering",
+        "Cross-session persistent agent memory architectures"
+      ]
     },
     {
-      title: "Web Development",
-      icon: Wrench,
-      skills: [
-        { name: "TypeScript", level: 90 },
-        { name: "Angular", level: 85 },
-        { name: "REST APIs", level: 90 }
+      id: 'sap-enterprise',
+      title: "Enterprise SAP S/4HANA",
+      badge: "Enterprise Systems",
+      icon: Server,
+      color: "from-blue-500/20 to-indigo-500/20 text-blue-400",
+      accentBorder: "group-hover:border-blue-500/50",
+      description: "Modern SAP S/4HANA digital transformation workflows, enterprise integration standards, and business process automation.",
+      technologies: [
+        "SAP S/4HANA",
+        "WRICEF Development Standards",
+        "RFC Data Extraction",
+        "SAP Integration Suite (CPI)",
+        "SAP BTP / Cloud Foundry",
+        "OData & CDS Views",
+        "ITIL v4 Framework"
       ],
-      color: "from-pink-500 to-purple-500"
+      capabilities: [
+        "Automated generation of enterprise-compliant functional specifications",
+        "Enterprise integration between external AI agent runtimes and SAP S/4HANA",
+        "SAP AMS governance and IT service management alignment"
+      ]
     },
     {
-      title: "Database & Tools",
-      icon: Database,
-      skills: [
-        { name: "MongoDB", level: 85 },
-        { name: "Firebase", level: 85 },
-        { name: "Git", level: 90 },
-        { name: "Fusion 360", level: 70 }
+      id: 'fullstack-cloud',
+      title: "Full-Stack, Cloud & DevOps",
+      badge: "Production Stack",
+      icon: Layers,
+      color: "from-emerald-500/20 to-teal-500/20 text-emerald-400",
+      accentBorder: "group-hover:border-emerald-500/50",
+      description: "Robust asynchronous backend services, responsive typed web interfaces, and containerized deployment infrastructure.",
+      technologies: [
+        "Python (FastAPI, Flask)",
+        "TypeScript",
+        "React / Next.js",
+        "Node.js",
+        "Docker",
+        "AWS (S3, CloudWatch)",
+        "Git & CI/CD"
       ],
-      color: "from-purple-500 to-indigo-500"
+      capabilities: [
+        "High-performance RESTful and streaming WebSocket API services",
+        "Strict TypeScript typing, modular UI design systems, and responsive layouts",
+        "Automated CI/CD pipelines and containerized Cloud Foundry deployment"
+      ]
     }
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const filteredCategories = activeTab === 'all' 
+    ? categories 
+    : categories.filter(c => c.id === activeTab);
 
   return (
-    <section id="skills" className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-black to-gray-950" ref={sectionRef}>
+    <section id="skills" className="py-20 lg:py-24 bg-gradient-to-b from-black via-gray-950 to-black border-t border-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-900/30 to-pink-900/30 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 border border-purple-500/30 mb-6">
-            <Brain className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
-            <span className="text-purple-400 font-semibold text-sm sm:text-base">Technical Expertise</span>
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-950/40 border border-purple-800/40 text-xs text-purple-300 font-medium mb-4">
+            <Cpu className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>Architecture & Competencies</span>
           </div>
-          
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">
-              Technical Skills
-            </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
+            Technical <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">Expertise</span>
           </h2>
-          <div className="w-20 sm:w-24 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 mx-auto rounded-full mb-6"></div>
-          <p className="text-gray-400 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
-            A comprehensive overview of my technical expertise across various domains, 
-            <span className="text-purple-400 font-semibold"> from AI/ML to enterprise development</span>
+          <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mt-4 mb-4"></div>
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            Hands-on production engineering across autonomous AI systems, knowledge graph RAG, and enterprise SAP digital transformation.
           </p>
         </div>
 
+        {/* Domain Filter Tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+          <button
+            type="button"
+            onClick={() => setActiveTab('all')}
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+              activeTab === 'all'
+                ? 'bg-purple-600 text-white shadow-md shadow-purple-500/25'
+                : 'bg-gray-900/80 text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700'
+            }`}
+          >
+            All Competencies
+          </button>
+          {categories.map((c) => (
+            <button
+              key={c.id}
+              type="button"
+              onClick={() => setActiveTab(c.id)}
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${
+                activeTab === c.id
+                  ? 'bg-purple-600 text-white shadow-md shadow-purple-500/25'
+                  : 'bg-gray-900/80 text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700'
+              }`}
+            >
+              {c.title}
+            </button>
+          ))}
+        </div>
+
+        {/* Competency Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-          {skillCategories.map((category, categoryIndex) => {
+          {filteredCategories.map((category) => {
             const IconComponent = category.icon;
             return (
               <div
-                key={categoryIndex}
-                className="group relative bg-gradient-to-br from-gray-900/80 to-black/80 p-6 sm:p-8 rounded-2xl border border-gray-800 hover:border-purple-500/50 transition-all duration-500 hover:transform hover:scale-[1.02]"
+                key={category.id}
+                className={`group relative bg-gray-950/90 rounded-2xl p-6 sm:p-8 border border-gray-800/80 ${category.accentBorder} transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/5`}
               >
-                {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-pink-600/5 to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-                
-                <div className="relative z-10">
-                  <div className="flex items-center space-x-3 mb-6">
-                    <div className="p-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-lg">
-                      <IconComponent className="w-6 h-6 text-purple-400" />
+                {/* Header */}
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className={`p-2.5 rounded-xl bg-gradient-to-br ${category.color} border border-gray-800`}>
+                      <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white">
-                      {category.title}
-                    </h3>
+                    <div>
+                      <h3 className="text-xl font-bold text-white tracking-tight">
+                        {category.title}
+                      </h3>
+                      <span className="text-xs text-purple-400 font-mono">
+                        {category.badge}
+                      </span>
+                    </div>
                   </div>
-                  
-                  <div className="space-y-4 sm:space-y-6">
-                    {category.skills.map((skill, skillIndex) => (
-                      <div key={skillIndex} className="relative">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-gray-300 font-medium text-sm sm:text-base">{skill.name}</span>
-                          <span className="text-gray-400 text-xs sm:text-sm">{skill.level}%</span>
-                        </div>
-                        <div className="h-2 sm:h-3 bg-gray-800/80 rounded-full overflow-hidden">
-                          <div
-                            className={`h-full bg-gradient-to-r ${category.color} rounded-full transition-all duration-1000 ease-out ${
-                              isVisible ? 'animate-pulse' : ''
-                            }`}
-                            style={{
-                              width: isVisible ? `${skill.level}%` : '0%',
-                              transitionDelay: `${categoryIndex * 200 + skillIndex * 100}ms`
-                            }}
-                          ></div>
-                        </div>
-                      </div>
+                </div>
+
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                  {category.description}
+                </p>
+
+                {/* Technologies Badge Chips */}
+                <div className="mb-6">
+                  <h4 className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-3">
+                    Core Technologies & Frameworks
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {category.technologies.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2.5 py-1 text-xs font-medium rounded-lg bg-gray-900 text-gray-200 border border-gray-800 hover:border-purple-500/40 hover:text-purple-300 transition-colors"
+                      >
+                        {tech}
+                      </span>
                     ))}
                   </div>
+                </div>
+
+                {/* Production Capabilities */}
+                <div className="border-t border-gray-800/80 pt-5">
+                  <h4 className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-3">
+                    Key Architectural Capabilities
+                  </h4>
+                  <ul className="space-y-2">
+                    {category.capabilities.map((cap, idx) => (
+                      <li key={idx} className="flex items-start space-x-2 text-xs sm:text-sm text-gray-300">
+                        <CheckCircle2 className="w-4 h-4 text-purple-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                        <span>{cap}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             );
