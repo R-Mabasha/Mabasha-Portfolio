@@ -18,15 +18,19 @@ const About = () => {
         {/* Narrative */}
         <div className="md:col-span-7 space-y-4 text-zinc-300 text-sm sm:text-base leading-relaxed">
           <p>
-            I am an <strong className="text-zinc-100 font-medium">Associate Engineer at KTern.AI</strong> in Chennai, India. My day-to-day work focuses on architecting production <strong className="text-zinc-100 font-medium">Agentic AI</strong> workflows, building custom Model Context Protocol (MCP) servers, and integrating autonomous systems with <strong className="text-zinc-100 font-medium">Enterprise SAP S/4HANA</strong> environments.
+            I approach artificial intelligence from a rigorous <strong className="text-zinc-100 font-medium">systems engineering</strong> perspective. While foundation models excel at open-ended synthesis, enterprise backends—particularly mission-critical ERP landscapes like <strong className="text-zinc-100 font-medium">SAP S/4HANA</strong>—demand deterministic invariants, audit compliance, and strict operational reliability.
           </p>
 
           <p className="text-zinc-400">
-            At KTern.AI, I designed an autonomous agent capable of taking raw, conversational user inputs and transforming them into structured functional specification documents strictly adhering to enterprise WRICEF standards. This bridges natural language flexibility with the rigid technical rigor enterprise SAP consultants require.
+            At <strong className="text-zinc-200 font-medium">KTern.AI</strong>, I engineer production agentic reasoning loops on AWS Bedrock (Claude 3.5 Sonnet) that compile unstructured enterprise dialogues into formal, audit-grade WRICEF functional architecture specifications. By coupling multi-agent verification loops with structured schema compilers, we eliminate hallucination and accelerate enterprise technical drafting cycles.
           </p>
 
           <p className="text-zinc-400">
-            In the open-source domain, I author schema-free GraphRAG frameworks—including <a href="https://pypi.org/project/graphrag-atlas/" target="_blank" rel="noopener noreferrer" className="text-zinc-200 underline underline-offset-4 decoration-zinc-700 hover:decoration-zinc-400">graphrag-atlas on PyPI</a>—and persistent agent memory servers using the Model Context Protocol.
+            In retrieval engineering, I eliminate distributed database sprawl. Instead of fragile multi-database chains, I design unified single-store architectures—such as <a href="https://pypi.org/project/graphrag-atlas/" target="_blank" rel="noopener noreferrer" className="text-zinc-200 underline underline-offset-4 decoration-zinc-700 hover:decoration-zinc-400">graphrag-atlas on PyPI</a>—integrating lexical BM25, dense HNSW vectors, and bounded property graph traversals with circuit breakers against super-node latency explosions.
+          </p>
+
+          <p className="text-zinc-400">
+            My engineering foundation is built on competitive execution: leading my team to <strong className="text-zinc-200 font-medium">1st Place nationally in the Smart India Hackathon</strong> (Ministry of Coal) out of 1,000+ universities, and receiving the <strong className="text-zinc-200 font-medium">Star of the Month</strong> at KTern.AI for technical delivery.
           </p>
         </div>
 

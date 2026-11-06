@@ -8,52 +8,52 @@ interface StackCategory {
 const Skills = () => {
   const stack: StackCategory[] = [
     {
-      title: "Agentic AI & LLM Systems",
-      description: "Autonomous tool use, agent orchestration, and deterministic prompting pipelines on AWS Bedrock.",
+      title: "Autonomous Agent Systems & LLM Engineering",
+      description: "Multi-agent orchestration loops, deterministic prompt compilation, and formal schema enforcement on AWS Bedrock.",
       items: [
         "AWS Bedrock",
-        "Claude 3.5 / Sonnet",
+        "Claude 3.5 Sonnet",
         "Model Context Protocol (MCP)",
-        "Multi-Agent Orchestration",
-        "Prompt Management & Evals",
-        "Structured JSON Schemas"
+        "Multi-Agent Coordination",
+        "Prompt Compilers & Guardrails",
+        "Deterministic JSON Schemas"
       ]
     },
     {
-      title: "Knowledge Graphs & RAG",
-      description: "Autonomous schema induction, entity extraction, and multi-hop hybrid retrieval.",
+      title: "Knowledge Topology & Advanced Retrieval",
+      description: "Single-store GraphRAG, dynamic entity extraction, and multi-hop hybrid retrieval with latency circuit breakers.",
       items: [
         "graphrag-atlas (PyPI)",
-        "AutoSchemaKG",
-        "Hybrid Search (BM25 + Dense)",
-        "Vector Databases",
-        "NetworkX",
-        "LangChain"
+        "Hybrid Search (BM25 + HNSW)",
+        "Property Graphs",
+        "Reciprocal Rank Fusion",
+        "Circuit Breakers",
+        "NetworkX"
       ]
     },
     {
-      title: "Enterprise SAP S/4HANA",
-      description: "ERP transformation standards, specification automation, and enterprise integration.",
+      title: "Enterprise ERP & SAP S/4HANA Systems",
+      description: "Enterprise transformation architectures, specification automation, and mission-critical integration fabrics.",
       items: [
-        "SAP S/4HANA",
-        "WRICEF Development Standards",
+        "SAP S/4HANA Modernization",
+        "WRICEF Specification Standards",
         "RFC Data Extraction",
         "SAP Integration Suite (CPI)",
         "SAP BTP / Cloud Foundry",
-        "ITIL v4 Framework"
+        "ITIL v4 Governance"
       ]
     },
     {
-      title: "Languages & Infrastructure",
-      description: "Asynchronous backend runtimes, typed frontend interfaces, and container pipelines.",
+      title: "Distributed Backend, Languages & Infrastructure",
+      description: "High-concurrency asynchronous runtimes, type-safe full-stack systems, and isolated sandbox environments.",
       items: [
-        "Python (FastAPI, Flask)",
+        "Python (FastAPI, AsyncIO)",
         "TypeScript",
         "React / Next.js",
         "Node.js",
-        "Docker",
-        "AWS (S3, Bedrock)",
-        "Git & CI/CD"
+        "PostgreSQL & MongoDB",
+        "Docker & Linux",
+        "Git Worktrees & CI/CD"
       ]
     }
   ];

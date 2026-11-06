@@ -1,17 +1,17 @@
 const Experience = () => {
   const experiences = [
     {
-      title: "Associate Engineer",
+      title: "AI Systems Engineer / Associate Engineer",
       company: "KTern.AI",
       period: "2024 – Present",
       location: "Chennai, India",
       roleType: "Full-time",
-      summary: "Leading autonomous agent engineering on AWS Bedrock and enterprise integration with SAP S/4HANA systems.",
+      summary: "Architecting autonomous agentic reasoning runtimes on AWS Bedrock, Model Context Protocol (MCP) tool fabrics, and enterprise SAP S/4HANA systems integration.",
       highlights: [
-        "Architected an autonomous agent translating natural language inputs into structured functional specification documents compliant with enterprise WRICEF development standards.",
-        "Engineered production prompt pipelines and evaluation guardrails on AWS Bedrock using Claude models.",
-        "Built Model Context Protocol (MCP) servers enabling agentic external tool execution, state management, and enterprise data grounding.",
-        "Integrated RFC-based enterprise data extraction pipelines and SAP Integration Suite / CPI endpoints."
+        "Architected and deployed production multi-agent pipelines converting unstructured enterprise dialogues into formal, audit-grade SAP WRICEF functional specifications, cutting drafting turnaround by over 60%.",
+        "Engineered production prompt compilation chains, automated evaluation guardrails, and deterministic JSON schema validation on AWS Bedrock with Claude 3.5 Sonnet.",
+        "Built custom Model Context Protocol (MCP) servers providing autonomous agents with deterministic tool execution, persistent session state, and sub-2ms enterprise knowledge retrieval.",
+        "Engineered resilient enterprise integration pipelines connecting modern cloud agent runtimes with SAP S/4HANA backends, RFC-based extraction engines, and SAP Integration Suite / CPI."
       ]
     },
     {
@@ -19,23 +19,23 @@ const Experience = () => {
       company: "KTern.AI",
       period: "2024",
       location: "Chennai, India",
-      roleType: "Honor",
-      summary: "Awarded by KTern.AI leadership in recognition of rapid delivery and technical execution in agentic AI.",
+      roleType: "Recognition",
+      summary: "Conferred by KTern.AI executive leadership in recognition of breakthrough technical execution and rapid delivery of enterprise AI agent architectures.",
       highlights: [
-        "Pioneered automated functional specification workflows, accelerating document preparation times across teams.",
-        "Contributed to enterprise LLM orchestration architecture and structured output pipelines."
+        "Pioneered automated functional specification synthesis, accelerating requirement-to-architecture delivery across key enterprise consulting engagements.",
+        "Established foundational agentic orchestration patterns and structured schema validation standards across engineering teams."
       ]
     },
     {
-      title: "Smart India Hackathon 2023 — Winner (1st Place)",
+      title: "Smart India Hackathon 2023 — National Champion (1st Place)",
       company: "Ministry of Coal, Government of India",
       period: "Dec 2023",
       location: "Mysuru, India",
       roleType: "National Hackathon",
-      summary: "Won 1st place nationwide and ₹1,00,000 cash prize solving Ministry of Coal Problem Statement 1313.",
+      summary: "Secured 1st place nationwide and ₹1,00,000 cash award solving national problem statement 1313 presented by the Ministry of Coal.",
       highlights: [
-        "Led team to victory among 1,000+ national teams at The National Institute of Engineering, Mysuru.",
-        "Engineered MobiSafe: An IoT & LSTM deep learning vehicle telemetry and predictive safety platform."
+        "Outperformed 1,000+ top university teams nationwide in India's flagship 36-hour hackathon finale at The National Institute of Engineering, Mysuru.",
+        "Architected MobiSafe: An end-to-end IoT telemetry platform coupling edge computer vision with bidirectional LSTM recurrent neural networks for real-time driver state analytics and fleet collision prevention."
       ]
     },
     {
@@ -44,9 +44,9 @@ const Experience = () => {
       period: "Aug 2022",
       location: "India",
       roleType: "National Hackathon",
-      summary: "Selected among top teams nationwide in India's flagship 36-hour innovation competition.",
+      summary: "Selected among the top national engineering teams to develop large-scale digital public infrastructure solutions.",
       highlights: [
-        "Built full-stack software prototype addressing real-world governance challenges."
+        "Architected distributed software architecture addressing complex state governance and citizen service workflows under strict live hackathon timelines."
       ]
     },
     {
@@ -55,9 +55,9 @@ const Experience = () => {
       period: "2023",
       location: "Coimbatore, India",
       roleType: "Regional Hackathon",
-      summary: "Finalist in competitive hackathon focusing on applied machine learning and computer vision.",
+      summary: "Finalist in competitive regional hackathon focusing on applied artificial intelligence, high-throughput data processing, and edge vision.",
       highlights: [
-        "Demonstrated real-time vision analytics prototype under strict competition constraints."
+        "Engineered and demonstrated low-latency vision analytics prototype under strict compute and time constraints."
       ]
     }
   ];

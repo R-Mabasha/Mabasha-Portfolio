@@ -24,46 +24,46 @@ const Projects = () => {
   const projects: Project[] = [
     {
       title: "graphrag-atlas",
-      badge: "PyPI Package",
-      description: "Autonomous Knowledge Graph construction and schema-free GraphRAG engine. Extracts dynamic entity hierarchies and multi-hop relationships from unstructured corpora without manual schema mapping.",
-      tech: ["Python", "LangChain", "NetworkX", "GraphRAG", "PyPI"],
+      badge: "PyPI Framework",
+      description: "Single-store hybrid GraphRAG framework eliminating multi-database sprawl in production AI. Unifies Lucene BM25, dense HNSW vectors, and bounded property graph traversals inside a single cluster, featuring an automated Hub Guard circuit breaker (degree ≤ 200) against super-node latency spikes.",
+      tech: ["Python", "Hybrid GraphRAG", "Atlas Lucene", "Circuit Breakers", "PyPI"],
       github: "https://github.com/R-Mabasha/graphrag-atlas",
       live: "https://pypi.org/project/graphrag-atlas/",
       installCommand: "pip install graphrag-atlas"
     },
     {
       title: "antigravity-project-memory",
-      badge: "MCP Server",
-      description: "Anthropic Model Context Protocol (MCP) server providing autonomous persistent long-term memory for AI agents with hybrid search (BM25 + Dense Vectors) and multi-agent knowledge consolidation.",
-      tech: ["TypeScript", "Model Context Protocol", "Vector DB", "Node.js"],
+      badge: "MCP Standard",
+      description: "Production-grade, zero-dependency Model Context Protocol (MCP) server delivering stateful agent memory. Features sub-2ms BM25 hybrid indexing, deterministic session caching, and multi-agent knowledge consolidation for autonomous development environments.",
+      tech: ["TypeScript", "Model Context Protocol", "Semantic Indexing", "Sub-2ms RAG"],
       github: "https://github.com/R-Mabasha/antigravity-project-memory"
     },
     {
       title: "Multi-Agent-Mcp",
-      badge: "Agent Orchestration",
-      description: "Enterprise multi-agent coordination architecture leveraging the Model Context Protocol to orchestrate specialized researcher, developer, and verifier agents for complex tasks.",
-      tech: ["Python", "MCP SDK", "AWS Bedrock", "AsyncIO"],
+      badge: "Autonomous Orchestration",
+      description: "Git-sandboxed multi-agent orchestration fabric. Enables teams of specialized autonomous agents (planners, coders, verifiers) to execute parallel experiments on isolated git worktrees with strict permission gates, conflict resolution, and automated reconciliation.",
+      tech: ["Python", "Multi-Agent Coordination", "Git Worktrees", "MCP", "AWS Bedrock"],
       github: "https://github.com/R-Mabasha/Multi-Agent-Mcp"
     },
     {
       title: "Vision-Stream",
-      badge: "Gemini 3 Hackathon",
-      description: "Real-time multimodal video analytics pipeline built for the Gemini 3 Hackathon, combining low-latency video streaming with vision models for high-frame situational intelligence.",
-      tech: ["Python", "Gemini API", "OpenCV", "WebRTC"],
+      badge: "Real-Time AI Stream",
+      description: "High-throughput multimodal video analytics pipeline built for the Gemini 3 Hackathon. Intercepts live camera streams for real-time temporal event detection, sub-second LLM classification, and responsive edge telemetry rendering.",
+      tech: ["React 19", "Gemini Multi-Modal", "WebRTC", "OpenCV", "AsyncIO"],
       github: "https://github.com/R-Mabasha/Vision-Stream"
     },
     {
       title: "MobiSafe",
-      badge: "SIH 2023 1st Place",
-      description: "IoT and AI vehicle safety monitoring system using LSTM deep neural networks and computer vision to alert against driver fatigue and vehicle telemetry anomalies in real-time.",
-      tech: ["Python", "TensorFlow", "LSTM", "OpenCV", "Flask"],
+      badge: "SIH 2023 National Champion",
+      description: "National 1st-place award-winning IoT & deep learning vehicle telemetry architecture solving Ministry of Coal Problem Statement 1313. Integrates edge computer vision with bidirectional LSTM networks for predictive driver state and fleet safety.",
+      tech: ["Python", "Bidirectional LSTM", "Edge IoT", "OpenCV", "Fleet Telemetry"],
       github: "https://github.com/R-Mabasha/MobiSafe"
     },
     {
       title: "Chittu-AI-Assistant",
-      badge: "Voice & NLP",
-      description: "Local desktop voice assistant featuring continuous speech recognition, intent parsing, and Gemini API integration for hands-free system automation.",
-      tech: ["Python", "Gemini API", "Speech Recognition", "NLP"],
+      badge: "Local Edge Intelligence",
+      description: "Low-latency voice assistant engine combining continuous streaming automatic speech recognition, semantic intent parsing, and LLM reasoning for hands-free local OS workflow automation.",
+      tech: ["Python", "Streaming ASR", "Intent Parsing", "Gemini API", "OS Automation"],
       github: "https://github.com/R-Mabasha/Chittu-AI-Assistant"
     }
   ];

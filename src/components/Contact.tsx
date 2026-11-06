@@ -38,7 +38,7 @@ const Contact = () => {
           Contact
         </h2>
         <p className="text-sm text-zinc-400">
-          Get in touch for collaborations, discussions on Agentic AI, or enterprise inquiries.
+          Open to discussions on AI systems architecture, agentic engineering, or enterprise transformation.
         </p>
       </div>
 

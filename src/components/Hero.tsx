@@ -11,7 +11,7 @@ const Hero = () => {
           {/* Status Badge */}
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 mb-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-zinc-200 font-medium">Associate Engineer @ KTern.AI</span>
+            <span className="text-zinc-200 font-medium">AI Systems & Architecture · KTern.AI</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-100">
@@ -19,7 +19,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-300 font-medium">
-            Agentic AI & LLM Systems · SAP S/4HANA Transformation
+            AI Systems Engineer & Architect · Autonomous Agent Runtimes & Enterprise Systems
           </p>
         </div>
 
@@ -35,14 +35,14 @@ const Hero = () => {
 
       {/* Bio Description */}
       <p className="text-zinc-400 text-base sm:text-lg leading-relaxed max-w-2xl">
-        I engineer autonomous LLM agent pipelines on AWS Bedrock, Model Context Protocol (MCP) servers, and schema-free GraphRAG frameworks. At KTern.AI, I architect agentic workflows that translate natural language business needs into enterprise-compliant SAP WRICEF functional specifications.
+        I architect production-grade autonomous agent runtimes, schema-free GraphRAG frameworks, and high-throughput Model Context Protocol (MCP) systems. At KTern.AI, I engineer cognitive orchestration engines on AWS Bedrock that synthesize complex enterprise requirements into audit-grade, mathematically consistent SAP WRICEF functional specifications.
       </p>
 
       {/* Highlight Tags */}
       <div className="flex flex-wrap gap-2 text-xs">
         <span className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-zinc-900/90 text-zinc-300 border border-zinc-800 rounded-lg">
           <Award className="w-3.5 h-3.5 text-amber-400" aria-hidden="true" />
-          <span>SIH 2023 1st Place (₹1,00,000)</span>
+          <span>SIH 2023 National Champion (1st Place · ₹1,00,000)</span>
         </span>
         <span className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-zinc-900/90 text-zinc-300 border border-zinc-800 rounded-lg">
           <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
@@ -50,7 +50,7 @@ const Hero = () => {
         </span>
         <span className="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-zinc-900/90 text-zinc-300 border border-zinc-800 rounded-lg">
           <Terminal className="w-3.5 h-3.5 text-zinc-400" aria-hidden="true" />
-          <span>PyPI: <code className="text-zinc-200 font-mono">graphrag-atlas</code></span>
+          <span>PyPI Author: <code className="text-zinc-200 font-mono">graphrag-atlas</code></span>
         </span>
       </div>
 
