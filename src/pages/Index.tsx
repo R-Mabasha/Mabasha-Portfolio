@@ -6,20 +6,18 @@ import Skills from '../components/Skills';
 import Experience from '../components/Experience';
 import Contact from '../components/Contact';
 import Navigation from '../components/Navigation';
-import ParticleBackground from '../components/ParticleBackground';
 import ScrollToTop from '../components/ScrollToTop';
 
 const Index = () => {
   return (
-    <div className="relative min-h-screen bg-black text-white selection:bg-purple-500/30 selection:text-purple-200 overflow-x-hidden">
-      <ParticleBackground />
+    <div className="relative min-h-screen bg-[#09090b] text-[#fafafa] selection:bg-zinc-800 selection:text-white">
       <Navigation />
-      <main id="main-content">
+      <main id="main-content" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 space-y-24">
         <Hero />
         <About />
-        <Skills />
-        <Projects />
         <Experience />
+        <Projects />
+        <Skills />
         <Contact />
       </main>
       <ScrollToTop />

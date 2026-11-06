@@ -1,250 +1,178 @@
 
 import { useState } from 'react';
-import { Github, ExternalLink, Award, Code2, Sparkles, Terminal, ArrowUpRight } from 'lucide-react';
+import { Github, ArrowUpRight, Copy, Check } from 'lucide-react';
 
 interface Project {
   title: string;
   badge: string;
-  category: 'agentic' | 'systems';
   description: string;
   tech: string[];
   github: string;
-  live: string | null;
-  award?: string;
-  featured?: boolean;
+  live?: string;
   installCommand?: string;
 }
 
 const Projects = () => {
-  const [activeFilter, setActiveFilter] = useState<'all' | 'agentic' | 'systems'>('all');
+  const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCmd(text);
+    setTimeout(() => setCopiedCmd(null), 2000);
+  };
 
   const projects: Project[] = [
     {
       title: "graphrag-atlas",
-      badge: "PyPI Package · GraphRAG",
-      category: 'agentic',
-      description: "Autonomous Knowledge Graph construction and GraphRAG engine without requiring predefined schemas. Features dynamic schema induction, entity extraction, and multi-hop relationship retrieval across large unstructured corpora.",
-      tech: ["Python", "LangChain", "NetworkX", "GraphRAG", "PyPI", "Embeddings"],
+      badge: "PyPI Package",
+      description: "Autonomous Knowledge Graph construction and schema-free GraphRAG engine. Extracts dynamic entity hierarchies and multi-hop relationships from unstructured corpora without manual schema mapping.",
+      tech: ["Python", "LangChain", "NetworkX", "GraphRAG", "PyPI"],
       github: "https://github.com/R-Mabasha/graphrag-atlas",
       live: "https://pypi.org/project/graphrag-atlas/",
-      award: "PyPI Release v0.1.0",
-      featured: true,
       installCommand: "pip install graphrag-atlas"
     },
     {
       title: "antigravity-project-memory",
-      badge: "MCP Server · Long-Term Memory",
-      category: 'agentic',
-      description: "Production-grade Anthropic Model Context Protocol (MCP) server providing autonomous persistent long-term memory for AI coding agents with hybrid search (BM25 + Dense Vectors) and multi-agent knowledge consolidation.",
-      tech: ["TypeScript", "Model Context Protocol", "Vector DB", "BM25 Hybrid Search", "Node.js"],
-      github: "https://github.com/R-Mabasha/antigravity-project-memory",
-      live: null,
-      award: "MCP Protocol Standard",
-      featured: true
+      badge: "MCP Server",
+      description: "Anthropic Model Context Protocol (MCP) server providing autonomous persistent long-term memory for AI agents with hybrid search (BM25 + Dense Vectors) and multi-agent knowledge consolidation.",
+      tech: ["TypeScript", "Model Context Protocol", "Vector DB", "Node.js"],
+      github: "https://github.com/R-Mabasha/antigravity-project-memory"
     },
     {
       title: "Multi-Agent-Mcp",
-      badge: "Agentic Framework",
-      category: 'agentic',
-      description: "Enterprise multi-agent coordination architecture leveraging the Model Context Protocol (MCP) to orchestrate specialized researcher, developer, and verifier agents for complex asynchronous tasks.",
-      tech: ["Python", "MCP SDK", "AWS Bedrock", "AsyncIO", "LLM Orchestration"],
-      github: "https://github.com/R-Mabasha/Multi-Agent-Mcp",
-      live: null,
-      featured: false
+      badge: "Agent Orchestration",
+      description: "Enterprise multi-agent coordination architecture leveraging the Model Context Protocol to orchestrate specialized researcher, developer, and verifier agents for complex tasks.",
+      tech: ["Python", "MCP SDK", "AWS Bedrock", "AsyncIO"],
+      github: "https://github.com/R-Mabasha/Multi-Agent-Mcp"
     },
     {
       title: "Vision-Stream",
       badge: "Gemini 3 Hackathon",
-      category: 'systems',
-      description: "Real-time multimodal streaming intelligence and video analytics pipeline built for the Gemini 3 Hackathon, combining low-latency video feeds with vision models for high-frame situational awareness.",
-      tech: ["Python", "Gemini API", "OpenCV", "WebRTC", "Computer Vision"],
-      github: "https://github.com/R-Mabasha/Vision-Stream",
-      live: null,
-      award: "Hackathon Entry",
-      featured: false
+      description: "Real-time multimodal video analytics pipeline built for the Gemini 3 Hackathon, combining low-latency video streaming with vision models for high-frame situational intelligence.",
+      tech: ["Python", "Gemini API", "OpenCV", "WebRTC"],
+      github: "https://github.com/R-Mabasha/Vision-Stream"
     },
     {
       title: "MobiSafe",
-      badge: "SIH 2023 National Winner",
-      category: 'systems',
-      description: "AI-driven vehicle safety monitoring and predictive maintenance system using LSTM deep neural networks and computer vision to detect driver fatigue and vehicle telemetry anomalies in real-time.",
-      tech: ["Python", "TensorFlow", "LSTM", "OpenCV", "IoT Telemetry", "Flask"],
-      github: "https://github.com/R-Mabasha/MobiSafe",
-      live: null,
-      award: "1st Place & ₹1,00,000",
-      featured: true
+      badge: "SIH 2023 1st Place",
+      description: "IoT and AI vehicle safety monitoring system using LSTM deep neural networks and computer vision to alert against driver fatigue and vehicle telemetry anomalies in real-time.",
+      tech: ["Python", "TensorFlow", "LSTM", "OpenCV", "Flask"],
+      github: "https://github.com/R-Mabasha/MobiSafe"
     },
     {
       title: "Chittu-AI-Assistant",
-      badge: "Voice & Desktop Agent",
-      category: 'agentic',
-      description: "Intelligent desktop voice assistant featuring continuous speech recognition, NLP intent parsing, and Gemini API integration for hands-free local system workflow automation.",
-      tech: ["Python", "Gemini API", "Speech Recognition", "NLP", "GUI"],
-      github: "https://github.com/R-Mabasha/Chittu-AI-Assistant",
-      live: null,
-      featured: false
+      badge: "Voice & NLP",
+      description: "Local desktop voice assistant featuring continuous speech recognition, intent parsing, and Gemini API integration for hands-free system automation.",
+      tech: ["Python", "Gemini API", "Speech Recognition", "NLP"],
+      github: "https://github.com/R-Mabasha/Chittu-AI-Assistant"
     }
   ];
 
-  const filteredProjects = activeFilter === 'all'
-    ? projects
-    : projects.filter(p => p.category === activeFilter);
-
   return (
-    <section id="projects" className="py-20 lg:py-24 bg-gradient-to-b from-black via-gray-950 to-black border-t border-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-950/40 border border-purple-800/40 text-xs text-purple-300 font-medium mb-4">
-            <Code2 className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>Open Source & Production Works</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
-            Featured <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">Projects</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mt-4 mb-4"></div>
-          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Real implementations in Agentic AI, autonomous GraphRAG engines, and national award-winning systems.
-          </p>
-        </div>
+    <section id="projects" className="space-y-6 pt-6 border-t border-zinc-800/80">
+      <div className="space-y-1">
+        <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-100">
+          Featured Projects
+        </h2>
+        <p className="text-sm text-zinc-400">
+          Open source packages, agent frameworks, and competition systems.
+        </p>
+      </div>
 
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          <button
-            type="button"
-            onClick={() => setActiveFilter('all')}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${
-              activeFilter === 'all'
-                ? 'bg-purple-600 text-white shadow-md shadow-purple-500/25'
-                : 'bg-gray-900/80 text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700'
-            }`}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {projects.map((project, index) => (
+          <article
+            key={index}
+            className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 p-5 flex flex-col justify-between hover:border-zinc-700/80 transition-colors"
           >
-            All Work ({projects.length})
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveFilter('agentic')}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${
-              activeFilter === 'agentic'
-                ? 'bg-purple-600 text-white shadow-md shadow-purple-500/25'
-                : 'bg-gray-900/80 text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700'
-            }`}
-          >
-            Agentic AI & RAG
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveFilter('systems')}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 ${
-              activeFilter === 'systems'
-                ? 'bg-purple-600 text-white shadow-md shadow-purple-500/25'
-                : 'bg-gray-900/80 text-gray-400 hover:text-white border border-gray-800 hover:border-gray-700'
-            }`}
-          >
-            Award Winners & Systems
-          </button>
-        </div>
-
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {filteredProjects.map((project, index) => (
-            <article
-              key={index}
-              className={`group flex flex-col justify-between bg-gray-950/90 rounded-2xl p-6 sm:p-7 border border-gray-800/80 hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10 ${
-                project.featured ? 'md:col-span-2 lg:col-span-1' : ''
-              }`}
-            >
-              <div>
-                {/* Header Badge Row */}
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="px-2.5 py-1 text-xs font-mono font-medium rounded-md bg-purple-950/60 text-purple-300 border border-purple-800/40">
-                    {project.badge}
-                  </span>
-                  {project.award && (
-                    <span className="flex items-center space-x-1 px-2.5 py-0.5 text-[11px] font-semibold rounded-full bg-amber-950/40 text-amber-300 border border-amber-800/40">
-                      <Award className="w-3 h-3 text-amber-400" aria-hidden="true" />
-                      <span>{project.award}</span>
-                    </span>
-                  )}
-                </div>
-
-                {/* Title */}
-                <h3 className="text-xl font-bold text-white group-hover:text-purple-300 transition-colors duration-200 mb-3 tracking-tight">
+            <div className="space-y-3">
+              {/* Header */}
+              <div className="flex items-center justify-between gap-2">
+                <h3 className="text-base font-semibold text-zinc-100 font-mono">
                   {project.title}
                 </h3>
-
-                {/* Description */}
-                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-5">
-                  {project.description}
-                </p>
-
-                {/* Optional CLI Install snippet for PyPI / open source */}
-                {project.installCommand && (
-                  <div className="mb-4 p-2.5 bg-black/80 rounded-lg border border-gray-800/80 font-mono text-xs text-gray-300 flex items-center justify-between">
-                    <div className="flex items-center space-x-2 overflow-x-auto">
-                      <Terminal className="w-3.5 h-3.5 text-pink-400 flex-shrink-0" aria-hidden="true" />
-                      <span className="text-pink-300">{project.installCommand}</span>
-                    </div>
-                  </div>
-                )}
-
-                {/* Tech Chips */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.tech.map((t, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-0.5 text-[11px] font-medium rounded bg-gray-900 text-gray-300 border border-gray-800"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+                <span className="px-2 py-0.5 text-[11px] font-mono text-zinc-400 bg-zinc-800/80 rounded border border-zinc-750">
+                  {project.badge}
+                </span>
               </div>
 
-              {/* Action Links */}
-              <div className="flex items-center justify-between pt-4 border-t border-gray-800/80 mt-auto">
+              {/* Description */}
+              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                {project.description}
+              </p>
+
+              {/* Copyable Install command */}
+              {project.installCommand && (
+                <div className="flex items-center justify-between bg-zinc-950 px-3 py-1.5 rounded-lg border border-zinc-800 font-mono text-xs text-zinc-300">
+                  <span className="text-zinc-400">$ {project.installCommand}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(project.installCommand!)}
+                    aria-label="Copy install command"
+                    className="p-1 text-zinc-400 hover:text-zinc-100 transition-colors focus:outline-none"
+                  >
+                    {copiedCmd === project.installCommand ? (
+                      <Check className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" aria-hidden="true" />
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {/* Tech Tags */}
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {project.tech.map((t, idx) => (
+                  <span
+                    key={idx}
+                    className="px-2 py-0.5 text-[11px] font-mono text-zinc-400 bg-zinc-850/80 rounded border border-zinc-800"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Action Links */}
+            <div className="flex items-center space-x-4 pt-4 mt-3 border-t border-zinc-800/60 text-xs font-medium">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-1 text-zinc-300 hover:text-white transition-colors"
+              >
+                <Github className="w-3.5 h-3.5" aria-hidden="true" />
+                <span>Source</span>
+                <ArrowUpRight className="w-3 h-3 text-zinc-500" aria-hidden="true" />
+              </a>
+
+              {project.live && (
                 <a
-                  href={project.github}
+                  href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`View source code for ${project.title} on GitHub`}
-                  className="inline-flex items-center space-x-1.5 text-xs sm:text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-400 rounded-md py-1 px-1.5"
+                  className="inline-flex items-center space-x-1 text-zinc-300 hover:text-white transition-colors"
                 >
-                  <Github className="w-4 h-4" aria-hidden="true" />
-                  <span>GitHub Repository</span>
+                  <span>Package</span>
+                  <ArrowUpRight className="w-3 h-3 text-zinc-500" aria-hidden="true" />
                 </a>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
 
-                {project.live && (
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Open live documentation or package for ${project.title}`}
-                    className="inline-flex items-center space-x-1 text-xs sm:text-sm font-medium text-pink-400 hover:text-pink-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-pink-400 rounded-md py-1 px-1.5"
-                  >
-                    <span>PyPI Package</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
-                  </a>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {/* Global GitHub CTA */}
-        <div className="text-center mt-14 sm:mt-16">
-          <a
-            href="https://github.com/R-Mabasha"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View all repositories on GitHub (opens in new tab)"
-            className="group inline-flex items-center space-x-2.5 px-7 py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-medium transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/25 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-purple-400"
-          >
-            <Github className="w-5 h-5" aria-hidden="true" />
-            <span>Explore All Repositories on GitHub</span>
-            <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true" />
-          </a>
-        </div>
+      {/* GitHub Link */}
+      <div className="pt-2 text-sm">
+        <a
+          href="https://github.com/R-Mabasha"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center space-x-1.5 text-zinc-400 hover:text-zinc-200 transition-colors underline underline-offset-4 decoration-zinc-700 hover:decoration-zinc-400"
+        >
+          <span>See all public repositories on GitHub</span>
+          <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+        </a>
       </div>
     </section>
   );

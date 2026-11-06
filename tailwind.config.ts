@@ -115,14 +115,6 @@ export default {
 						transform: 'translateY(0)',
 						opacity: '1'
 					}
-				},
-				'glow': {
-					'0%, 100%': {
-						boxShadow: '0 0 20px rgba(168, 85, 247, 0.4)'
-					},
-					'50%': {
-						boxShadow: '0 0 30px rgba(168, 85, 247, 0.6), 0 0 40px rgba(236, 72, 153, 0.4)'
-					}
 				}
 			},
 			animation: {
@@ -130,8 +122,7 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.6s ease-out',
 				'scale-in': 'scale-in 0.4s ease-out',
-				'slide-up': 'slide-up 0.6s ease-out',
-				'glow': 'glow 2s ease-in-out infinite'
+				'slide-up': 'slide-up 0.6s ease-out'
 			}
 		}
 	},

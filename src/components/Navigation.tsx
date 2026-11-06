@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Home, User, Code, Briefcase, Mail, Trophy } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,35 +9,33 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      
-      // Update active section based on scroll position
-      const sections = ['home', 'about', 'skills', 'projects', 'experience', 'contact'];
+      setScrolled(window.scrollY > 20);
+
+      const sections = ['home', 'about', 'experience', 'projects', 'skills', 'contact'];
       const current = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          return rect.top <= 120 && rect.bottom >= 120;
         }
         return false;
       });
-      
+
       if (current) {
         setActiveSection(current);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navigation = [
-    { name: 'Home', href: '#home', icon: Home },
-    { name: 'About', href: '#about', icon: User },
-    { name: 'Skills', href: '#skills', icon: Code },
-    { name: 'Projects', href: '#projects', icon: Briefcase },
-    { name: 'Experience', href: '#experience', icon: Trophy },
-    { name: 'Contact', href: '#contact', icon: Mail },
+    { name: 'About', href: '#about' },
+    { name: 'Experience', href: '#experience' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -49,92 +47,94 @@ const Navigation = () => {
   };
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-black/85 backdrop-blur-md border-b border-gray-800/80 shadow-lg shadow-purple-500/5' : 'bg-transparent'
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+      scrolled 
+        ? 'bg-[#09090b]/85 backdrop-blur-md border-b border-zinc-800/80' 
+        : 'bg-transparent border-b border-transparent'
     }`}>
-      <nav aria-label="Main navigation" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          {/* Logo */}
-          <button 
-            type="button"
-            onClick={() => scrollToSection('home')}
-            aria-label="Navigate to Home"
-            className="flex items-center space-x-3 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 rounded-lg"
-          >
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-600 via-pink-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-md shadow-purple-500/20 group-hover:scale-105 transition-transform duration-200">
-              <span className="text-white font-bold text-lg">M</span>
-            </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="text-white font-bold text-lg tracking-tight">Mabasha R.</span>
-                <span className="hidden xl:inline-block px-2 py-0.5 text-[11px] font-semibold text-purple-300 bg-purple-950/70 border border-purple-800/50 rounded-full">
-                  KTern.AI
-                </span>
-              </div>
-              <p className="text-xs text-gray-400 font-mono hidden sm:block">Agentic AI & Systems</p>
-            </div>
-          </button>
+      <nav aria-label="Main navigation" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        {/* Brand */}
+        <button
+          type="button"
+          onClick={() => scrollToSection('home')}
+          aria-label="Mabasha R. - Back to top"
+          className="flex items-center space-x-2.5 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 rounded-md py-1"
+        >
+          <span className="w-7 h-7 rounded-md bg-zinc-800 border border-zinc-700/80 flex items-center justify-center font-mono text-xs font-semibold text-zinc-100 group-hover:border-zinc-500 transition-colors">
+            MR
+          </span>
+          <span className="text-sm font-semibold tracking-tight text-zinc-100 group-hover:text-white transition-colors">
+            Mabasha R.
+          </span>
+        </button>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2 lg:space-x-4">
-            {navigation.map((item) => (
+        {/* Desktop Navigation Links */}
+        <div className="hidden sm:flex items-center space-x-1 sm:space-x-2">
+          {navigation.map((item) => {
+            const targetId = item.name.toLowerCase();
+            const isActive = activeSection === targetId;
+            return (
               <button
                 key={item.name}
                 type="button"
-                onClick={() => scrollToSection(item.name.toLowerCase())}
-                aria-current={activeSection === item.name.toLowerCase() ? 'page' : undefined}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 ${
-                  activeSection === item.name.toLowerCase()
-                    ? 'text-purple-300 bg-purple-950/60 border border-purple-800/40'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                onClick={() => scrollToSection(targetId)}
+                aria-current={isActive ? 'page' : undefined}
+                className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 ${
+                  isActive
+                    ? 'text-zinc-100 bg-zinc-800/70 font-semibold'
+                    : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/30'
                 }`}
               >
-                <item.icon className="w-4 h-4" aria-hidden="true" />
-                <span>{item.name}</span>
+                {item.name}
               </button>
-            ))}
-          </div>
+            );
+          })}
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle navigation menu"
-              aria-expanded={isOpen}
-              className="text-gray-300 hover:text-white p-2 rounded-lg hover:bg-gray-800/50 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
-            >
-              {isOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
-            </button>
-          </div>
+          <a
+            href="mailto:mabasham52@gmail.com"
+            className="ml-3 px-3 py-1.5 text-xs font-medium text-zinc-200 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400"
+          >
+            Get in touch
+          </a>
+        </div>
+
+        {/* Mobile menu button */}
+        <div className="sm:hidden">
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={isOpen}
+            className="p-1.5 text-zinc-400 hover:text-zinc-100 rounded-md hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 transition-colors"
+          >
+            {isOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
+          </button>
         </div>
       </nav>
 
-      {/* Mobile Navigation */}
-      <div className={`md:hidden transition-all duration-300 ${
-        isOpen 
-          ? 'max-h-96 opacity-100' 
-          : 'max-h-0 opacity-0 overflow-hidden'
-      }`}>
-        <div className="px-4 py-3 space-y-1 bg-black/95 backdrop-blur-xl border-t border-gray-800">
+      {/* Mobile menu dropdown */}
+      {isOpen && (
+        <div className="sm:hidden bg-[#09090b]/95 backdrop-blur-xl border-b border-zinc-800 px-4 py-3 space-y-1">
           {navigation.map((item) => (
             <button
               key={item.name}
               type="button"
               onClick={() => scrollToSection(item.name.toLowerCase())}
-              aria-current={activeSection === item.name.toLowerCase() ? 'page' : undefined}
-              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 ${
-                activeSection === item.name.toLowerCase()
-                  ? 'text-purple-300 bg-purple-950/60 border border-purple-800/40 font-semibold'
-                  : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
-              }`}
+              className="w-full text-left px-3 py-2 text-sm text-zinc-300 hover:text-white hover:bg-zinc-800/50 rounded-md transition-colors"
             >
-              <item.icon className="w-5 h-5" aria-hidden="true" />
-              <span>{item.name}</span>
+              {item.name}
             </button>
           ))}
+          <div className="pt-2 border-t border-zinc-800/80">
+            <a
+              href="mailto:mabasham52@gmail.com"
+              className="block w-full text-center px-3 py-2 text-xs font-medium text-zinc-200 bg-zinc-900 border border-zinc-800 rounded-md"
+            >
+              Get in touch · mabasham52@gmail.com
+            </a>
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 };
